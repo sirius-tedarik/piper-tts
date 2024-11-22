@@ -1,24 +1,21 @@
-import csv
 import os
 
 def write_to_csv(path, filename, text):
+    """
+    Her çağrıldığında bir satır yazar. Dosya mevcutsa ekleme (append) yapar,
+    yoksa yeni bir dosya oluşturur.
+    """
     csv_path = os.path.join(path, 'metadata.csv')
-    file_exists = os.path.exists(csv_path)
 
-    # Text'i UTF-8'e çevir
-    line = (filename + "|" + text + "\n").encode('utf-8')
-    
     try:
-        if file_exists:
-            # Append binary mode
-            with open(csv_path, 'ab') as file:
-                file.write(line)
-        else:
-            # Write binary mode with BOM
-            with open(csv_path, 'wb') as file:
-                file.write(b'\xef\xbb\xbf')  # UTF-8 BOM
-                file.write(line)
-                
+        # Satırı temizle ve hazırlık yap
+        text = str(text).strip()
+        filename = str(filename).strip()
+        line = f"{filename}|{text}\n"
+
+        # Dosyayı ekleme (append) ya da oluşturma (write) modunda aç
+        with open(csv_path, mode='a', encoding='utf-8-sig', newline='') as file:
+            file.write(line)  # Satırı yaz
+            file.flush()  # Buffer'ı hemen temizle
     except Exception as e:
-        print(f"Debug - Exception:", str(e))
-        raise e
+        print(f"Hata: {e}")

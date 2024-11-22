@@ -15,8 +15,8 @@ def generate_speech(text, filename, csv_path, lang='en-US', file_format='wav', o
    
    # Ses ayarları
    voice = texttospeech.VoiceSelectionParams(
-       language_code=lang,
-       ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+       language_code=lang,  # Kullanılacak dil kodu
+       ssml_gender=texttospeech.SsmlVoiceGender.MALE  # Erkek sesi
    )
    
    # Audio config
