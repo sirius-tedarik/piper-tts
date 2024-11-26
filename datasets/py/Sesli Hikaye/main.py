@@ -8,8 +8,5 @@ if __name__ == "__main__":
    url = input("Lütfen youtube dosyasının linkini sağlayın: ")
    path = download_audio_from_youtube(url)
    splitAudio(path)
-   recognize_speech_from_files_in_audios()
-   
-   
    
    
